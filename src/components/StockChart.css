@@ -1,0 +1,147 @@
+.chart-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  backdrop-filter: blur(4px);
+}
+
+.chart-modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 95%;
+  max-width: 600px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: chart-pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes chart-pop-in {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.chart-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-modal-header .stock-info {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.chart-modal-header .name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.chart-modal-header .code {
+  font-size: 14px;
+  color: #666;
+  font-family: 'SF Mono', monospace;
+}
+
+.chart-modal-header .close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.chart-modal-header .close-btn:hover {
+  color: #333;
+}
+
+.chart-tabs {
+  display: flex;
+  background: #f8f9fa;
+  padding: 4px;
+  gap: 4px;
+}
+
+.chart-tabs button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.chart-tabs button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.chart-tabs button.active {
+  background: white;
+  color: #4a90d9;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.chart-container {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  background: #fff;
+}
+
+.stock-chart-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.chart-modal-footer {
+  padding: 12px 20px;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.chart-modal-footer p {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.chart-btn-small {
+  padding: 4px 8px;
+  background: #f0f7ff;
+  color: #4a90d9;
+  border: 1px solid #4a90d9;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chart-btn-small:hover {
+  background: #4a90d9;
+  color: white;
+}
