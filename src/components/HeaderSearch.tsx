@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
+import { History, Star, X } from 'lucide-react';
 import './HeaderSearch.css';
 
 interface FilterState {
@@ -154,10 +155,16 @@ export function HeaderSearch({
               }}
               title={pinnedTags.includes(tag) ? "取消固定" : "固定标签"}
             >
-              {pinnedTags.includes(tag) ? '★' : '☆'}
+              <Star 
+                size={14} 
+                fill={pinnedTags.includes(tag) ? "currentColor" : "none"} 
+                strokeWidth={2}
+              />
             </span>
             {tag}
-            <button type="button" onClick={() => handleRemoveTag(tag)}>×</button>
+            <button type="button" onClick={() => handleRemoveTag(tag)}>
+              <X size={14} strokeWidth={2.5} />
+            </button>
           </span>
         ))}
         <input
@@ -175,7 +182,9 @@ export function HeaderSearch({
           placeholder={filter.tags.length === 0 ? placeholder : ""}
         />
         {(inputValue || filter.tags.length > 0) && (
-          <button className="header-clear-btn" onClick={clearAll}>×</button>
+          <button className="header-clear-btn" onClick={clearAll}>
+            <X size={16} strokeWidth={2} />
+          </button>
         )}
       </div>
 
@@ -195,7 +204,7 @@ export function HeaderSearch({
                     className="suggestion-item recent-item"
                     onClick={() => handleRecentClick(stock)}
                   >
-                    <span className="clock-icon">🕒</span>
+                    <History size={14} className="clock-icon" />
                     {stock}
                   </div>
                 ))}
@@ -242,7 +251,10 @@ export function HeaderSearch({
                       }}
                       title={pinnedTags.includes(suggestion) ? "取消固定" : "固定标签"}
                     >
-                      {pinnedTags.includes(suggestion) ? '★' : '☆'}
+                      <Star 
+                        size={12} 
+                        fill={pinnedTags.includes(suggestion) ? "currentColor" : "none"} 
+                      />
                     </span>
                   </div>
                 ))}

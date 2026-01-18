@@ -1,4 +1,16 @@
 import { useState, useMemo } from 'react';
+import { 
+  ChevronsUpDown, 
+  ChevronUp, 
+  ChevronDown, 
+  LineChart, 
+  Trash2, 
+  Edit2, 
+  Download, 
+  Upload, 
+  Bot, 
+  BarChart2 
+} from 'lucide-react';
 import type { Trade } from '../types';
 import { StockChart } from './StockChart';
 import { TradeAnalysisChart } from './TradeAnalysisChart';
@@ -154,10 +166,10 @@ export function TradeList({ trades, onDelete, onBatchDelete, onImport, onEdit, o
   };
 
   const renderSortIndicator = (key: SortKey) => {
-    if (sortConfig.key !== key) return <span className="sort-indicator">⇅</span>;
+    if (sortConfig.key !== key) return <ChevronsUpDown size={14} className="sort-indicator" />;
     return sortConfig.order === 'asc' ? 
-      <span className="sort-indicator active">↑</span> : 
-      <span className="sort-indicator active">↓</span>;
+      <ChevronUp size={14} className="sort-indicator active" /> : 
+      <ChevronDown size={14} className="sort-indicator active" />;
   };
 
   return (
@@ -167,26 +179,31 @@ export function TradeList({ trades, onDelete, onBatchDelete, onImport, onEdit, o
           {selectedIds.length > 0 && (
             <>
               <button className="batch-delete-btn" onClick={handleBatchDelete}>
-                删除选中 ({selectedIds.length})
+                <Trash2 size={14} />
+                <span>删除 ({selectedIds.length})</span>
               </button>
               <button className="analysis-btn" onClick={() => setShowAnalysis(true)}>
-                图表分析
+                <BarChart2 size={14} />
+                <span>图表分析</span>
               </button>
               <button 
                 className="ai-analysis-btn" 
                 onClick={() => onAIAnalyze?.(selectedIds)}
               >
-                AI 分析选中
+                <Bot size={14} />
+                <span>AI 分析</span>
               </button>
             </>
           )}
         </div>
         <div className="header-right-minimal">
           <button className="secondary-btn" onClick={handleExport}>
-            导出 JSON
+            <Download size={14} />
+            <span>导出</span>
           </button>
           <label className="secondary-btn import-label">
-            导入 JSON
+            <Upload size={14} />
+            <span>导入</span>
             <input type="file" accept=".json" onChange={handleImport} hidden />
           </label>
         </div>
@@ -209,22 +226,22 @@ export function TradeList({ trades, onDelete, onBatchDelete, onImport, onEdit, o
                   />
                 </th>
                 <th onClick={() => handleSort('date')} className="sortable">
-                  时间 {renderSortIndicator('date')}
+                  <div className="th-content">时间 {renderSortIndicator('date')}</div>
                 </th>
                 <th onClick={() => handleSort('stockCode')} className="sortable">
-                  股票 {renderSortIndicator('stockCode')}
+                  <div className="th-content">股票 {renderSortIndicator('stockCode')}</div>
                 </th>
                 <th onClick={() => handleSort('type')} className="sortable">
-                  类型 {renderSortIndicator('type')}
+                  <div className="th-content">类型 {renderSortIndicator('type')}</div>
                 </th>
                 <th onClick={() => handleSort('price')} className="sortable number-cell">
-                  价格 {renderSortIndicator('price')}
+                  <div className="th-content justify-end">价格 {renderSortIndicator('price')}</div>
                 </th>
                 <th onClick={() => handleSort('quantity')} className="sortable number-cell">
-                  数量 {renderSortIndicator('quantity')}
+                  <div className="th-content justify-end">数量 {renderSortIndicator('quantity')}</div>
                 </th>
                 <th onClick={() => handleSort('amount')} className="sortable number-cell">
-                  金额 {renderSortIndicator('amount')}
+                  <div className="th-content justify-end">金额 {renderSortIndicator('amount')}</div>
                 </th>
                 <th>操作</th>
               </tr>
@@ -244,11 +261,11 @@ export function TradeList({ trades, onDelete, onBatchDelete, onImport, onEdit, o
                     <div className="stock-info-row">
                       <span className="stock-code">{trade.stockCode}</span>
                       <button 
-                        className="chart-btn-small" 
+                        className="chart-btn-minimal" 
                         onClick={() => setChartStock({ code: trade.stockCode, name: trade.stockName })}
                         title="查看图表"
                       >
-                        📈
+                        <LineChart size={14} />
                       </button>
                     </div>
                     {trade.stockName && (
@@ -278,8 +295,9 @@ export function TradeList({ trades, onDelete, onBatchDelete, onImport, onEdit, o
                     <button
                       className="edit-btn"
                       onClick={() => onEdit(trade)}
+                      title="修改"
                     >
-                      修改
+                      <Edit2 size={14} />
                     </button>
                     <button
                       className="delete-btn"
@@ -288,8 +306,9 @@ export function TradeList({ trades, onDelete, onBatchDelete, onImport, onEdit, o
                           onDelete(trade.id);
                         }
                       }}
+                      title="删除"
                     >
-                      删除
+                      <Trash2 size={14} />
                     </button>
                   </td>
                 </tr>

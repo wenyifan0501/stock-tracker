@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { ChevronsUpDown, ChevronUp, ChevronDown, LineChart, FileSearch } from 'lucide-react';
 import type { Position, StockQuote } from '../types';
 import { formatMoney, formatPercent } from '../utils/calculations';
 import { StockChart } from './StockChart';
@@ -93,10 +94,10 @@ export function PositionSummary({
   }
 
   const renderSortIndicator = (key: SortKey) => {
-    if (sortConfig?.key !== key) return <span className="sort-indicator">⇅</span>;
+    if (sortConfig?.key !== key) return <ChevronsUpDown size={14} className="sort-indicator" />;
     return sortConfig.order === 'asc' ? 
-      <span className="sort-indicator active">↑</span> : 
-      <span className="sort-indicator active">↓</span>;
+      <ChevronUp size={14} className="sort-indicator active" /> : 
+      <ChevronDown size={14} className="sort-indicator active" />;
   };
 
   return (
@@ -132,22 +133,22 @@ export function PositionSummary({
           <thead>
             <tr>
               <th onClick={() => handleSort('stockCode')} className="sortable">
-                股票 {renderSortIndicator('stockCode')}
+                <div className="th-content">股票 {renderSortIndicator('stockCode')}</div>
               </th>
               <th onClick={() => handleSort('totalQuantity')} className="sortable number-cell">
-                持仓数量 {renderSortIndicator('totalQuantity')}
+                <div className="th-content justify-end">持仓数量 {renderSortIndicator('totalQuantity')}</div>
               </th>
               <th onClick={() => handleSort('averageCost')} className="sortable number-cell">
-                成本价 {renderSortIndicator('averageCost')}
+                <div className="th-content justify-end">成本价 {renderSortIndicator('averageCost')}</div>
               </th>
               <th onClick={() => handleSort('currentPrice')} className="sortable number-cell">
-                现价 {renderSortIndicator('currentPrice')}
+                <div className="th-content justify-end">现价 {renderSortIndicator('currentPrice')}</div>
               </th>
               <th onClick={() => handleSort('marketValue')} className="sortable number-cell">
-                市值 {renderSortIndicator('marketValue')}
+                <div className="th-content justify-end">市值 {renderSortIndicator('marketValue')}</div>
               </th>
               <th onClick={() => handleSort('profitLoss')} className="sortable number-cell">
-                浮盈 {renderSortIndicator('profitLoss')}
+                <div className="th-content justify-end">浮盈 {renderSortIndicator('profitLoss')}</div>
               </th>
             </tr>
           </thead>
@@ -159,20 +160,22 @@ export function PositionSummary({
                   <td className="stock-cell">
                     <div className="stock-info-row">
                       <span className="stock-code">{pos.stockCode}</span>
-                      <button 
-                        className="chart-btn-small" 
-                        onClick={() => setChartStock({ code: pos.stockCode, name: pos.stockName })}
-                        title="查看图表"
-                      >
-                        📈
-                      </button>
-                      <button 
-                        className="chart-btn-small" 
-                        onClick={() => onViewTrades(pos.stockCode)}
-                        title="查看交易记录"
-                      >
-                        📜
-                      </button>
+                      <div className="stock-actions-minimal">
+                        <button 
+                          className="chart-btn-minimal" 
+                          onClick={() => setChartStock({ code: pos.stockCode, name: pos.stockName })}
+                          title="查看图表"
+                        >
+                          <LineChart size={14} />
+                        </button>
+                        <button 
+                          className="chart-btn-minimal" 
+                          onClick={() => onViewTrades(pos.stockCode)}
+                          title="查看交易记录"
+                        >
+                          <FileSearch size={14} />
+                        </button>
+                      </div>
                     </div>
                     <span className="stock-name">{pos.stockName}</span>
                   </td>

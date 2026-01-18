@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { LayoutDashboard, History, MessageSquare, RefreshCcw, Plus } from 'lucide-react';
 import { TradeForm } from './components/TradeForm';
 import { TradeList } from './components/TradeList';
 import { PositionSummary } from './components/PositionSummary';
@@ -172,21 +173,21 @@ function App() {
             className={`nav-item ${activeTab === 'positions' ? 'active' : ''}`}
             onClick={() => setActiveTab('positions')}
           >
-            <span className="nav-icon">📊</span>
+            <LayoutDashboard className="nav-icon" size={18} strokeWidth={2} />
             持仓汇总
           </button>
           <button 
             className={`nav-item ${activeTab === 'trades' ? 'active' : ''}`}
             onClick={() => setActiveTab('trades')}
           >
-            <span className="nav-icon">📝</span>
+            <History className="nav-icon" size={18} strokeWidth={2} />
             交易记录
           </button>
           <button 
             className={`nav-item ${activeTab === 'ai' ? 'active' : ''}`}
             onClick={() => setActiveTab('ai')}
           >
-            <span className="nav-icon">🤖</span>
+            <MessageSquare className="nav-icon" size={18} strokeWidth={2} />
             AI 助手
           </button>
         </nav>
@@ -220,13 +221,15 @@ function App() {
                 onClick={handleRefreshQuotes}
                 disabled={loading}
               >
-                {loading ? '刷新中...' : '刷新行情'}
+                <RefreshCcw size={16} className={loading ? 'spinning' : ''} style={{ marginRight: '8px' }} />
+                <span>{loading ? '刷新中' : '刷新行情'}</span>
               </button>
             )}
 
             {activeTab === 'trades' && (
               <button className="header-btn-primary" onClick={() => setIsModalOpen(true)}>
-                新增记录
+                <Plus size={16} style={{ marginRight: '6px' }} />
+                <span>新增记录</span>
               </button>
             )}
           </div>

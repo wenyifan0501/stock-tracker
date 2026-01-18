@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Plus, Trash2, Settings, Send, Bot, User, ChevronRight, MessageSquare } from 'lucide-react';
 import type { Position, Message, Conversation } from '../types';
 import { formatMoney, formatPercent } from '../utils/calculations';
 import { chatWithAI, getAISettings } from '../utils/aiService';
@@ -234,7 +235,10 @@ export function AIAssistant({ positions, totals, pendingAnalysis, onAnalysisComp
       <div className="bubble">
         {msg.reasoning_content && (
           <details className="reasoning-block" open>
-            <summary>深度思考过程</summary>
+            <summary>
+              <ChevronRight size={14} className="reasoning-chevron" />
+              深度思考过程
+            </summary>
             <div className="reasoning-content">
               {msg.reasoning_content.split('\n').map((line, i) => <p key={i}>{line}</p>)}
             </div>
@@ -287,7 +291,7 @@ export function AIAssistant({ positions, totals, pendingAnalysis, onAnalysisComp
     <div className="ai-assistant-container">
       <div className="ai-sidebar">
         <button className="new-chat-btn" onClick={() => handleNewChat()}>
-          <span>+</span> 新建对话
+          <Plus size={18} /> 新建对话
         </button>
         <div className="conversation-list">
           {conversations.map(conv => (
@@ -296,8 +300,11 @@ export function AIAssistant({ positions, totals, pendingAnalysis, onAnalysisComp
               className={`conv-item ${activeId === conv.id ? 'active' : ''}`}
               onClick={() => handleSwitchChat(conv.id)}
             >
+              <MessageSquare size={14} className="conv-icon" />
               <span className="conv-title" title={conv.title}>{conv.title}</span>
-              <button className="conv-delete" onClick={(e) => handleDeleteChat(conv.id, e)}>×</button>
+              <button className="conv-delete" onClick={(e) => handleDeleteChat(conv.id, e)}>
+                <Trash2 size={14} />
+              </button>
             </div>
           ))}
         </div>
@@ -324,7 +331,9 @@ export function AIAssistant({ positions, totals, pendingAnalysis, onAnalysisComp
           <div className="chat-window" ref={scrollRef}>
             {!activeId || messages.length === 0 ? (
               <div className="chat-empty">
-                <div className="ai-avatar">🤖</div>
+                <div className="ai-avatar-large">
+                  <Bot size={48} strokeWidth={1.5} />
+                </div>
                 <h4>我是您的私人投资助手</h4>
                 <p>您可以向我咨询持仓情况，或了解市场动态</p>
                 <div className="suggested-questions">
@@ -336,7 +345,9 @@ export function AIAssistant({ positions, totals, pendingAnalysis, onAnalysisComp
               <div className="message-list">
                 {messages.map((msg, i) => (
                   <div key={i} className={`message-row ${msg.role}`}>
-                    <div className="avatar">{msg.role === 'assistant' ? '🤖' : '👤'}</div>
+                    <div className="avatar">
+                      {msg.role === 'assistant' ? <Bot size={20} /> : <User size={20} />}
+                    </div>
                     <div className="message-content">
                       {renderMessageContent(msg)}
                     </div>
@@ -344,7 +355,7 @@ export function AIAssistant({ positions, totals, pendingAnalysis, onAnalysisComp
                 ))}
                 {isTyping && (
                   <div className="message-row assistant">
-                    <div className="avatar">🤖</div>
+                    <div className="avatar"><Bot size={20} /></div>
                     <div className="message-content">
                       <div className="bubble typing">
                         <span></span><span></span><span></span>
@@ -362,7 +373,7 @@ export function AIAssistant({ positions, totals, pendingAnalysis, onAnalysisComp
               onClick={() => setShowSettings(true)}
               title="AI 设置"
             >
-              ⚙️
+              <Settings size={20} />
             </button>
             <textarea
               value={input}
@@ -382,7 +393,7 @@ export function AIAssistant({ positions, totals, pendingAnalysis, onAnalysisComp
               onClick={() => handleSend()}
               disabled={!input.trim() || isTyping || !activeId}
             >
-              发送
+              <Send size={18} />
             </button>
           </div>
         </div>

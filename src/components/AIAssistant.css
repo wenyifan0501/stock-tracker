@@ -57,6 +57,11 @@
   font-size: 13px;
 }
 
+.conv-icon {
+  flex-shrink: 0;
+  color: #94a3b8;
+}
+
 .conv-item:hover {
   background: #f1f5f9;
   color: #1e293b;
@@ -66,6 +71,10 @@
   background: #eff6ff;
   color: #1d4ed8;
   font-weight: 500;
+}
+
+.conv-item.active .conv-icon {
+  color: #1d4ed8;
 }
 
 .conv-title {
@@ -83,6 +92,9 @@
   border-radius: 4px;
   opacity: 0;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .conv-item:hover .conv-delete {
@@ -187,9 +199,16 @@
   text-align: center;
 }
 
-.ai-avatar {
-  font-size: 48px;
-  margin-bottom: 16px;
+.ai-avatar-large {
+  width: 80px;
+  height: 80px;
+  background: #f1f5f9;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #4a90d9;
 }
 
 .suggested-questions {
@@ -239,17 +258,17 @@
 .avatar {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
   flex-shrink: 0;
   margin-top: 4px;
 }
 
 .message-row.assistant .avatar {
   background: #f1f5f9;
+  color: #4a90d9;
 }
 
 .message-row.user .avatar {
@@ -293,6 +312,17 @@
   user-select: none;
   outline: none;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reasoning-chevron {
+  transition: transform 0.2s;
+}
+
+.reasoning-block[open] .reasoning-chevron {
+  transform: rotate(90deg);
 }
 
 .reasoning-content {
@@ -398,6 +428,7 @@
   justify-content: center;
   transition: all 0.2s;
   color: #64748b;
+  flex-shrink: 0;
 }
 
 .settings-toggle-btn:hover {
@@ -422,14 +453,18 @@
 }
 
 .send-btn {
-  padding: 10px 20px;
+  width: 40px;
+  height: 40px;
   background: #4a90d9;
   color: white;
   border: none;
   border-radius: 8px;
-  font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .send-btn:hover:not(:disabled) {
@@ -437,6 +472,6 @@
 }
 
 .send-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: not-allowed;
 }
